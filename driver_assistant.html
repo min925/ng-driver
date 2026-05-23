@@ -26,6 +26,12 @@
     <script>
         function speak(indoText, engText) {
             window.speechSynthesis.cancel(); // 停止目前播放
+
+            // 在 speak 函數開頭加入這段，嘗試尋找高品質語音
+            const voices = window.speechSynthesis.getVoices();
+            // 篩選出高品質（通常名稱包含 "Premium" 或 "Enhanced"）的英文語音
+            const engVoice = voices.find(v => v.lang === 'en-US' && v.name.includes('Google')); 
+            if (engVoice) msg2.voice = engVoice;
             
             const msg1 = new SpeechSynthesisUtterance(indoText);
             msg1.lang = 'id-ID';
@@ -34,7 +40,8 @@
 
             const msg2 = new SpeechSynthesisUtterance(engText);
             msg2.lang = 'en-US';
-            msg2.rate = 0.9;
+            msg2.rate = 0.85;
+            msg2.pitch = 1.0;
             window.speechSynthesis.speak(msg2);
         }
     </script>
