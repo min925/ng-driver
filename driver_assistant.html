@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>司機語音助手</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; height: 100vh; margin: 0; background-color: #f0f0f0; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; flex-grow: 1; }
+        button { font-size: 20px; padding: 20px; border: none; border-radius: 15px; background-color: #007bff; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); touch-action: manipulation; }
+        button:active { background-color: #0056b3; }
+        .stop { background-color: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="grid">
+        <button onclick="speak('Belok kanan', 'Turn right')">右轉 (Turn Right)</button>
+        <button onclick="speak('Belok kiri', 'Turn left')">左轉 (Turn Left)</button>
+        <button onclick="speak('Lurus terus', 'Go straight')">直走 (Go Straight)</button>
+        <button onclick="speak('Pelan-pelan', 'Slow down')">慢一點 (Slow down)</button>
+        <button onclick="speak('Berhenti di sini', 'Stop here')">這裡停 (Stop here)</button>
+        <button onclick="speak('Putar balik', 'U-turn')">掉頭 (U-turn)</button>
+    </div>
+
+    <script>
+        function speak(indoText, engText) {
+            window.speechSynthesis.cancel(); // 停止目前播放
+            
+            const msg1 = new SpeechSynthesisUtterance(indoText);
+            msg1.lang = 'id-ID';
+            msg1.rate = 0.9;
+            window.speechSynthesis.speak(msg1);
+
+            const msg2 = new SpeechSynthesisUtterance(engText);
+            msg2.lang = 'en-US';
+            msg2.rate = 0.9;
+            window.speechSynthesis.speak(msg2);
+        }
+    </script>
+</body>
+</html>
